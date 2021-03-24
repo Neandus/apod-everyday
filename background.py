@@ -10,13 +10,13 @@ class Background:
     def get_current(self):
         cmd = [self.gsettings_bin, "get", self.schema, self.key]
         #text=True is output as text not as bytes
-        result = subprocess.run(cmd, capture_output=True, text=True)    
+        result = subprocess.run(cmd, capture_output=True, text=True)
         return result.stdout
 
-    def set_new(self,filename):
+    def set_new(self, filename):
         file = "file://" + self.directory + "/" + filename
         cmd = [self.gsettings_bin, "set", self.schema, self.key, file]
-        result = subprocess.run(cmd, capture_output=True)    
+        result = subprocess.run(cmd, capture_output=True)
         return result.returncode
 
 if __name__ == '__main__':
