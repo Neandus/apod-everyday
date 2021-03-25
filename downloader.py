@@ -1,19 +1,23 @@
 import requests
 
-class Downloader:
+class downloader:
     def __init__(self, download_directory):
         self.download_directory = download_directory
 
     def download(self, url, output_name):
-        r = requests.get(url)
-        try: 
-            with open(self.download_directory + output_name, 'wb') as f:
-                f.write(r.content)
-                return True
 
-        except OSError as err:
-            print(f"OS error: {err}")
-            return False
+        r = requests.get(url, stream=True)
+
+        #Check status code, 200 for OK
+        if 200 == r.status_code:
+            try: 
+                with open(self.download_directory + output_name, 'wb') as f:
+                    f.write(r.content)
+                    return True
+
+            except OSError as err:
+                print(f"OS error: {err}")
+                return False
 
 if __name__ == "__main__":
 
@@ -24,7 +28,7 @@ if __name__ == "__main__":
         {'url' : 'https://apod.nasa.gov/apod/image/2012/2020Dec14TSE_Ribas_IMG_9291c.jpg', 'output_name': 'ap201218.jpg'}
     ]
 
-    d = Downloader('/tmp/')
+    d = downloader('/tmp/')
 
     def test_file_exists(file):
         try:

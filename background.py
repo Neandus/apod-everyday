@@ -1,6 +1,6 @@
 import subprocess
 
-class Background:
+class background:
     def __init__(self, directory):
         self.directory = directory
         self.gsettings_bin = "/usr/bin/gsettings"
@@ -24,7 +24,7 @@ if __name__ == '__main__':
     hardy_background = "hardy_wallpaper_uhd.png"
     warty_background = "warty-final-ubuntu.png"
     
-    bg = Background("/usr/share/backgrounds")
+    bg = background("/usr/share/backgrounds")
 
     # Tests
     assert(0 == bg.set_new(hardy_background))

@@ -2,7 +2,7 @@ from lxml import etree
 from io import StringIO
 import requests
 
-class ImageLinkParser:
+class image_link_parser:
 
     def __init__(self, base_url, coding):
         self.base_url = base_url
@@ -12,14 +12,16 @@ class ImageLinkParser:
     def get_html_tree(self, date):
         page = requests.get(self.base_url + date)
 
-        # Decode the page in the right encoding
-        html = page.content.decode(self.coding)
+        if 200 == page.status_code:
 
-        # Create your etree with a StringIO object which functions similarly
-        # to a fileHandler
-        tree = etree.parse(StringIO(html), parser=self.parser)
+            # Decode the page in the right encoding
+            html = page.content.decode(self.coding)
 
-        return tree
+            # Create your etree with a StringIO object which functions similarly
+            # to a fileHandler
+            tree = etree.parse(StringIO(html), parser=self.parser)
+
+            return tree
 
     # Call this function and pass in your tree
     def get_links(self, tree, validator):
@@ -46,7 +48,7 @@ if __name__ == "__main__":
         {'date': 'ap201218.html', 'link': 'image/2012/2020Dec14TSE_Ribas_IMG_9291c.jpg'}
     ]
 
-    ilp = ImageLinkParser(base_url='https://apod.nasa.gov/apod/', coding='utf-8-sig')
+    ilp = image_link_parser(base_url='https://apod.nasa.gov/apod/', coding='utf-8-sig')
     validator = lambda l: l.startswith('image') and l.endswith('.jpg')
 
     for test_case in test_array:
