@@ -39,21 +39,4 @@ class image_link_parser:
         return self.get_links(tree, validator)
 
 if __name__ == "__main__":
-
-    test_array = [
-        {'date': 'ap201023.html', 'link': 'image/2010/STScI_NGC2525_1865x2000.jpg'},
-        {'date': 'ap210216.html', 'link': ''},
-        {'date': 'ap210201.html', 'link': 'image/2102/LunarHalo_Strand_1500.jpg'},
-        {'date': 'ap210126.html', 'link': 'image/2101/NGC1316Center_HubbleNobre_2585.jpg'},
-        {'date': 'ap201218.html', 'link': 'image/2012/2020Dec14TSE_Ribas_IMG_9291c.jpg'}
-    ]
-
-    ilp = image_link_parser(base_url='https://apod.nasa.gov/apod/', coding='utf-8-sig')
-    validator = lambda l: l.startswith('image') and l.endswith('.jpg')
-
-    for test_case in test_array:
-        link = ilp.parse(test_case['date'], validator)
-        if (0 < len(link)):
-            assert(link[0] == test_case['link'])
-            print(link[0] + " == " + test_case['link'])
-
+    pass

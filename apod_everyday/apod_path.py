@@ -19,9 +19,4 @@ class apod_path:
         return url_path
 
 if __name__ == "__main__":
-    ad = apod_path()
-    today_apod_url_path = ad.parse_date(None)
-    print(today_apod_url_path)
-
-    other_date_url_path = ad.parse_date("04/03/05")
-    print(other_date_url_path)
+    pass

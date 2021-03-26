@@ -20,15 +20,4 @@ class background:
         return result.returncode
 
 if __name__ == '__main__':
-    #Default Ubuntu wallpapers
-    hardy_background = "hardy_wallpaper_uhd.png"
-    warty_background = "warty-final-ubuntu.png"
-    
-    bg = background("/usr/share/backgrounds")
-
-    # Tests
-    assert(0 == bg.set_new(hardy_background))
-    assert(hardy_background in bg.get_current())
-
-    assert(0 == bg.set_new(warty_background))
-    assert(warty_background in bg.get_current())
+    pass

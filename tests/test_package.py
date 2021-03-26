@@ -1,8 +1,4 @@
-import apod_path
-import background
-import downloader
-import image_link_parser
-import datetime
+from .context import apod_everyday
 
 apod_base_url = 'https://apod.nasa.gov/apod/'
 
