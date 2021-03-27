@@ -1,11 +1,11 @@
 import requests
 
 class downloader:
+
     def __init__(self, download_directory):
         self.download_directory = download_directory
 
     def download(self, url, output_name):
-
         r = requests.get(url, stream=True)
 
         #Check status code, 200 for OK
