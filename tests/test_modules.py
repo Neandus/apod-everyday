@@ -2,13 +2,15 @@ from context import apod_path
 from context import background
 from context import downloader
 from context import image_link_parser
+from context import apod_everyday
+import datetime
 
 def test_apod_path():
     ad = apod_path.apod_path()
-    today_apod_url_path = ad.parse_date(None)
+    today_apod_url_path = ad.parse_date(datetime.datetime.now())
     print(today_apod_url_path)
 
-    other_date_url_path = ad.parse_date("04/03/05")
+    other_date_url_path = ad.parse_date(datetime.datetime(2004, 3, 5))
     print(other_date_url_path)
 
 def test_background():
@@ -66,7 +68,23 @@ def test_image_link_parser():
             assert(link[0] == test_case['link'])
             print(link[0] + " == " + test_case['link'])
 
+def test_args_parser():
+
+    arg_date = apod_everyday.get_date_from_args('--date 2007-09-11'.split())
+
+    assert(datetime.datetime(2007, 9, 11).year == arg_date.year)
+    assert(datetime.datetime(2007, 9, 11).month == arg_date.month)
+    assert(datetime.datetime(2007, 9, 11).day == arg_date.day)
+
+    arg_date = apod_everyday.get_date_from_args('--today'.split())
+
+    today = datetime.datetime.now()
+    assert(today.year == arg_date.year)
+    assert(today.month == arg_date.month)
+    assert(today.day == arg_date.day)
+
 if __name__ == "__main__":
+    test_args_parser()
     test_apod_path()
     test_background()
     test_downloader()

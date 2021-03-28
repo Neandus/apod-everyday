@@ -6,3 +6,4 @@ from apod_everyday import apod_path
 from apod_everyday import background
 from apod_everyday import downloader
 from apod_everyday import image_link_parser
+from apod_everyday import apod_everyday
