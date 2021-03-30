@@ -56,7 +56,8 @@ def test_image_link_parser():
         {'date': 'ap210216.html', 'link': ''},
         {'date': 'ap210201.html', 'link': 'image/2102/LunarHalo_Strand_1500.jpg'},
         {'date': 'ap210126.html', 'link': 'image/2101/NGC1316Center_HubbleNobre_2585.jpg'},
-        {'date': 'ap201218.html', 'link': 'image/2012/2020Dec14TSE_Ribas_IMG_9291c.jpg'}
+        {'date': 'ap201218.html', 'link': 'image/2012/2020Dec14TSE_Ribas_IMG_9291c.jpg'},
+        {'date': 'ap950617.html', 'link': ''},
     ]
 
     ilp = image_link_parser.image_link_parser(base_url='https://apod.nasa.gov/apod/', coding='utf-8-sig')

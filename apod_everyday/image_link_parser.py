@@ -22,6 +22,11 @@ class image_link_parser:
             tree = etree.parse(StringIO(html), parser=self.parser)
 
             return tree
+        else:
+
+            print(f"The requested URL {self.base_url + date} was not found on this server.")
+
+            return None
 
     # Call this function and pass in your tree
     def get_links(self, tree, validator):
@@ -36,7 +41,11 @@ class image_link_parser:
 
     def parse(self, date, validator):
         tree = self.get_html_tree(date)
-        return self.get_links(tree, validator)
+
+        if tree is not None:
+            return self.get_links(tree, validator)
+        else:
+            return []
 
 if __name__ == "__main__":
     pass

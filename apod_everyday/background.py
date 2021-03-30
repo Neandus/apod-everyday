@@ -7,7 +7,7 @@ def determine_desktop_environment():
 
     if desktop_env in ('Unity', 'Gnome'):
         ret = gnome()
-    elif desktop_env in ('Xfce'):
+    elif desktop_env in ('XFCE'):
         ret = None #xfce()
     elif desktop_env in ('Kde'):
         ret = None #kde()
