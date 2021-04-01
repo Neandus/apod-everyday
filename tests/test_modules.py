@@ -3,7 +3,11 @@ from context import background
 from context import downloader
 from context import image_link_parser
 from context import apod_everyday
+from context import screen
+from context import image_resolution
 import datetime
+import os
+
 
 def test_apod_path():
     ad = apod_path.apod_path()
@@ -84,9 +88,27 @@ def test_args_parser():
     assert(today.month == arg_date.month)
     assert(today.day == arg_date.day)
 
+def test_image_resolution():
+    test_img_resolution = (1710, 1312)
+    test_img = os.path.abspath("tests/img/test_img.png")
+
+    img_resolution = image_resolution.get_image_resolution(test_img)
+
+    assert(test_img_resolution == img_resolution)
+
+def test_screen():
+    #Not sure how to test it :P
+    s = screen.screen()
+    screen_res = s.get_screen_resolution()
+    print(screen_res)
+    screen_ratio = s.get_screen_ratio(screen_res[0], screen_res[1])
+    print(screen_ratio)
+
 if __name__ == "__main__":
     test_args_parser()
     test_apod_path()
     test_background()
     test_downloader()
     test_image_link_parser()
+    test_image_resolution()
+    test_screen()
