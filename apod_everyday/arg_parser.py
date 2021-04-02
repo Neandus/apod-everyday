@@ -18,15 +18,15 @@ class DateParseAction(argparse.Action):
 
 #Parse args and return date
 def get_date_from_args(argv=None):
-    parser = argparse.ArgumentParser(description='Download and set background from \'Astronomy Picture of the Day\'')
+    parser = argparse.ArgumentParser(argv[0], description='Download and set background from \'Astronomy Picture of the Day\'')
     group = parser.add_mutually_exclusive_group(required=True)
-    group.add_argument('--today', help='choose today\'s picture', action='store_true', required=False)
+    group.add_argument('--today', help='choose today\'s picture', action='store_true')
     group.add_argument('--date', help='choose picture from gievn date (ISO format e.g. \'2021-03-28\')',
-                        type=datetime.date.fromisoformat, action=DateParseAction, required='--today' in sys.argv) #required only if --today is not given
+                        type=datetime.date.fromisoformat, action=DateParseAction)
 
     ret_date = None
 
-    args = parser.parse_args(argv)
+    args = parser.parse_args(argv[1:])
 
     if args.today == True:
         ret_date = datetime.datetime.now()
@@ -36,4 +36,5 @@ def get_date_from_args(argv=None):
     return ret_date
 
 if __name__ == "__main__":
-    pass
+    ret = get_date_from_args(argv=sys.argv)
+    print(ret)

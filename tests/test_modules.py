@@ -2,7 +2,7 @@ from context import apod_path
 from context import background
 from context import downloader
 from context import image_link_parser
-from context import apod_everyday
+from context import arg_parser
 from context import screen
 from context import image_resolution
 import datetime
@@ -75,13 +75,13 @@ def test_image_link_parser():
 
 def test_args_parser():
 
-    arg_date = apod_everyday.get_date_from_args('--date 2007-09-11'.split())
+    arg_date = arg_parser.get_date_from_args('test_modules.py --date 2007-09-11'.split())
 
     assert(datetime.datetime(2007, 9, 11).year == arg_date.year)
     assert(datetime.datetime(2007, 9, 11).month == arg_date.month)
     assert(datetime.datetime(2007, 9, 11).day == arg_date.day)
 
-    arg_date = apod_everyday.get_date_from_args('--today'.split())
+    arg_date = arg_parser.get_date_from_args('test_modules.py --today'.split())
 
     today = datetime.datetime.now()
     assert(today.year == arg_date.year)

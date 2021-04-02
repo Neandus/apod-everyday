@@ -53,7 +53,7 @@ To be done:
 class xfce:
     def __init__(self):
         self.get_cmd = '/usr/bin/gsettings get org.gnome.desktop.background picture-uri '
-        self.set_cmd = '/usr/bin/gsettings set org.gnome.desktop.background picture-uri '
+        self.set_cmd = 'xfconf-query --channel xfce4-desktop --property /backdrop/screen0/monitor0/image-path --set '
 
 class kde:
     def __init__(self):

@@ -23,7 +23,7 @@ class screen:
         temp = 0
 
         if width == height:
-            return "1:1"
+            return (1, 1)
 
         if width < height:
             temp = width
@@ -31,12 +31,12 @@ class screen:
             height = temp
 
         divisor = gcd(width, height)
-
-        x = int(width / divisor) if not temp else int(height / divisor)
-        y = int(height / divisor) if not temp else int(width / divisor)
+        if divisor != 0:
+            x = int(width / divisor) if not temp else int(height / divisor)
+            y = int(height / divisor) if not temp else int(width / divisor)
 
         return (x, y)
 
 
 if __name__ == "__main__":
-    get_screen_resolution()
+    pass

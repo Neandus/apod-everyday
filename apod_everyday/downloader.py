@@ -18,6 +18,8 @@ class downloader:
             except OSError as err:
                 print(f"OS error: {err}")
                 return False
+        else:
+            return False
 
 if __name__ == "__main__":
     pass
