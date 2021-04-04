@@ -4,16 +4,17 @@ import os
 def determine_desktop_environment():
     ret = None
     desktop_env = os.environ.get('XDG_CURRENT_DESKTOP')
+    print(f"You are using: {desktop_env.lower()}" )
 
-    if desktop_env in ('Unity', 'Gnome'):
+    if 'gnome' in desktop_env.lower():
         ret = gnome()
-    elif desktop_env in ('XFCE'):
-        ret = None #xfce()
-    elif desktop_env in ('Kde'):
-        ret = None #kde()
-    elif desktop_env in ('Mate'):
+    elif 'xfce' in desktop_env.lower():
+        ret = xfce()
+    elif 'kde' in desktop_env.lower():
+        ret = kde()
+    elif 'mate' in desktop_env.lower():
         ret = mate()
-    elif desktop_env in ('Cinnamon'):
+    elif 'cinnamon' in desktop_env.lower():
         ret = cinnamon()
     else:
         pass
@@ -35,7 +36,7 @@ class background:
         return result.stdout
 
     def set_new(self, filename):
-        file = "file://" + self.directory + "/" + filename
+        file = self.directory + "/" + filename
         cmd = self.desktop_env.set_cmd + file
         result = subprocess.run(cmd, capture_output=True, shell=True)
         return result.returncode
@@ -46,29 +47,27 @@ class background:
 class gnome:
     def __init__(self):
         self.get_cmd = '/usr/bin/gsettings get org.gnome.desktop.background picture-uri '
-        self.set_cmd = '/usr/bin/gsettings set org.gnome.desktop.background picture-uri '
+        self.set_cmd = '/usr/bin/gsettings set org.gnome.desktop.background picture-uri file://'
 
-"""
-To be done:
 class xfce:
     def __init__(self):
-        self.get_cmd = '/usr/bin/gsettings get org.gnome.desktop.background picture-uri '
-        self.set_cmd = 'xfconf-query --channel xfce4-desktop --property /backdrop/screen0/monitor0/image-path --set '
+        self.get_cmd = '/usr/bin/xfconf-query --channel xfce4-desktop --property /backdrop/screen0/monitoreDP-1-1/workspace0/last-image '
+        self.set_cmd = '/usr/bin/xfconf-query --channel xfce4-desktop --property /backdrop/screen0/monitoreDP-1-1/workspace0/last-image --set '
 
 class kde:
     def __init__(self):
-        self.get_cmd = '/usr/bin/gsettings get org.gnome.desktop.background picture-uri '
-        self.set_cmd = '/usr/bin/gsettings set org.gnome.desktop.background picture-uri '
-"""
+        self.get_cmd = None #'/usr/bin/gsettings get org.gnome.desktop.background picture-uri '
+        self.set_cmd = None #'/usr/bin/gsettings set org.gnome.desktop.background picture-uri '
+
 class mate:
     def __init__(self):
         self.get_cmd = '/usr/bin/gsettings get org.mate.background picture-filename '
-        self.set_cmd = '/usr/bin/gsettings set org.mate.background picture-filename '
+        self.set_cmd = '/usr/bin/gsettings set org.mate.background picture-filename file://'
 
 class cinnamon:
     def __init__(self):
         self.get_cmd = '/usr/bin/gsettings get org.cinnamon.desktop.background picture-uri '
-        self.set_cmd = '/usr/bin/gsettings set org.cinnamon.desktop.background picture-uri '
+        self.set_cmd = '/usr/bin/gsettings set org.cinnamon.desktop.background picture-uri file://'
 
 
 
