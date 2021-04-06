@@ -51,13 +51,16 @@ class gnome:
 
 class xfce:
     def __init__(self):
-        self.get_cmd = '/usr/bin/xfconf-query --channel xfce4-desktop --property /backdrop/screen0/monitoreDP-1-1/workspace0/last-image '
-        self.set_cmd = '/usr/bin/xfconf-query --channel xfce4-desktop --property /backdrop/screen0/monitoreDP-1-1/workspace0/last-image --set '
+        #For now assume one monitor is connected
+        result = subprocess.run('xrandr --listmonitors | grep \'+\' | awk {\'print $4\'}', capture_output=True, shell=True, text=True)
+        connected = result.stdout.rstrip()
+        self.get_cmd = f'/usr/bin/xfconf-query --channel xfce4-desktop --property /backdrop/screen0/monitor{connected}/workspace0/last-image '
+        self.set_cmd = f'/usr/bin/xfconf-query --channel xfce4-desktop --property /backdrop/screen0/monitor{connected}/workspace0/last-image --set '
 
 class kde:
     def __init__(self):
-        self.get_cmd = None #'/usr/bin/gsettings get org.gnome.desktop.background picture-uri '
-        self.set_cmd = None #'/usr/bin/gsettings set org.gnome.desktop.background picture-uri '
+        self.get_cmd = None
+        self.set_cmd = None
 
 class mate:
     def __init__(self):
@@ -72,5 +75,5 @@ class cinnamon:
 
 
 if __name__ == '__main__':
-    pass
+    determine_desktop_environment()
 

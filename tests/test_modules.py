@@ -96,6 +96,12 @@ def test_image_resolution():
 
     assert(test_img_resolution == img_resolution)
 
+    test_screen_resolution = (2560, 1080)
+    assert(False == image_resolution.is_image_good_resolution(test_screen_resolution, test_img_resolution))
+
+    test_screen_resolution2 = (1680, 720)
+    assert(True == image_resolution.is_image_good_resolution(test_screen_resolution2, test_img_resolution))
+
 def test_screen():
     #Not sure how to test it :P
     s = screen.screen()

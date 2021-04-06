@@ -34,9 +34,15 @@ class screen:
         if divisor != 0:
             x = int(width / divisor) if not temp else int(height / divisor)
             y = int(height / divisor) if not temp else int(width / divisor)
+        else:
+            return None
 
         return (x, y)
 
 
 if __name__ == "__main__":
-    pass
+    s = screen()
+    screen_res = s.get_screen_resolution()
+    print(screen_res)
+    screen_ratio = s.get_screen_ratio(screen_res[0], screen_res[1])
+    print(screen_ratio)
