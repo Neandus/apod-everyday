@@ -15,6 +15,12 @@ https://softwareengineering.stackexchange.com/questions/200522/how-to-deal-with-
 import psycopg2
 import os
 
+#Hack for using db_config in tests
+try:
+    from db_config import config
+except ImportError:
+    from .db_config import config
+
 class Postgres(object):
     """docstring for Postgres"""
     _instance = None
@@ -23,10 +29,10 @@ class Postgres(object):
         if cls._instance is None:
             cls._instance = object.__new__(cls)
 
-            db_config = config()
+            db_info = config(filename='resources/database.ini')
             try:
                 print('connecting to PostgreSQL database...')
-                connection = Postgres._instance.connection = psycopg2.connect(**db_config)
+                connection = Postgres._instance.connection = psycopg2.connect(**db_info)
                 cursor = Postgres._instance.cursor = connection.cursor()
                 cursor.execute('SELECT VERSION()')
                 db_version = cursor.fetchone()
@@ -48,7 +54,7 @@ class Postgres(object):
         try:
             result = self.cursor.execute(query)
         except Exception as error:
-            print(f'error execting query "{query}", error: {error}')
+            print(f'error execting query \"{query}\", error: {error}')
             return None
         else:
             return result

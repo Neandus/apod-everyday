@@ -5,6 +5,9 @@ from context import image_link_parser
 from context import arg_parser
 from context import screen
 from context import image_resolution
+from context import database
+from context import db_config
+
 import datetime
 import os
 
@@ -110,6 +113,14 @@ def test_screen():
     screen_ratio = s.get_screen_ratio(screen_res[0], screen_res[1])
     print(screen_ratio)
 
+def test_database_config():
+    db_info = db_config.config(filename='resources/database.ini')
+    print(db_info)
+
+def test_database():
+    db = database.Postgres()
+
+
 if __name__ == "__main__":
     test_args_parser()
     test_apod_path()
@@ -118,3 +129,5 @@ if __name__ == "__main__":
     test_image_link_parser()
     test_image_resolution()
     test_screen()
+    test_database_config()
+    test_database()
