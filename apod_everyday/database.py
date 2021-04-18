@@ -50,9 +50,9 @@ class Postgres(object):
         self.connection = self._instance.connection
         self.cursor = self._instance.cursor
 
-    def query(self, query):
+    def query(self, query, vars=None):
         try:
-            result = self.cursor.execute(query)
+            result = self.cursor.execute(query, vars=vars)
         except Exception as error:
             print(f'error execting query \"{query}\", error: {error}')
             return None
@@ -62,6 +62,22 @@ class Postgres(object):
     def __del__(self):
         self.connection.close()
         self.cursor.close()
+
+    def write_blob(self, date, filename, image):
+        self.query("""INSERT INTO apod_images(post_date,image,filename)
+                        VALUES(%s,%s,%s)""",
+                    (date, filename, image))
+
+    def read_blob(self, date, filepath):
+        image = psycopg2.Binary()
+        image_extension = ""
+        self.query("""SELECT filename, image
+                        FROM apod_images
+                        WHERE post_date=%s""",
+                    (date,))
+      
+        blob = self.cursor.fetchone()
+        open(filepath + blob[0], 'wb').write(blob[1])
 
 if __name__ == "__main__":
     pass
